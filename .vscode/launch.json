@@ -16,6 +16,22 @@
             "numberOfSqlStatements": 10,
             "authentication": "MicrosoftEntraID",
             "tenant": "290c0bb0-5b21-4b03-9e59-62f1311a362c"
+        },
+        {
+            "name": "Publish: Microsoft cloud sandbox",
+            "type": "al",
+            "request": "launch",
+            "environmentType": "Sandbox",
+            "environmentName": "Desarrollo",
+            "startupObjectId": 22,
+            "breakOnError": "All",
+            "breakOnRecordWrite": "None",
+            "launchBrowser": true,
+            "enableSqlInformationDebugger": true,
+            "enableLongRunningSqlStatements": true,
+            "longRunningSqlStatementsThreshold": 500,
+            "numberOfSqlStatements": 10,
+            "tenant": "8832cee0-823a-40cb-b064-05b4f2053acb"
         }
     ]
 }

@@ -1,0 +1,264 @@
+# Videoclub  
+## Documento Funcional  
+### Sistema de Gestión de Videoclubes  
+### Implantación Microsoft Dynamics 365 Business Central  
+
+---
+
+## 1. Introducción
+
+### 1.1 Objetivo
+
+Definir los requisitos funcionales para la implantación de un sistema de gestión integral de videoclubes utilizando Microsoft Dynamics 365 Business Central.
+
+El sistema deberá permitir gestionar:
+
+- Catálogo de películas
+- Copias físicas
+- Compras
+- Ventas
+- Alquileres
+- Penalizaciones
+- Control de clientes
+- Información analítica y reportes
+
+---
+
+### 1.2 Alcance
+
+La solución debe cubrir:
+
+- Gestión de información detallada de películas (género, actores, director, etc.)
+- Control individualizado de copias físicas
+- Gestión de disponibilidad por establecimiento
+- Proceso completo de alquiler con cálculo automático de importes y penalizaciones
+- Gestión de ventas de copias
+- Gestión de clientes y control de morosidad
+- Informes operativos y analíticos
+
+---
+
+## 2. Entidades Funcionales
+
+### 2.1 Películas
+
+Cada película deberá disponer de:
+
+- Identificador único
+- Año de lanzamiento
+- Director
+- Duración
+- Género principal
+- Género secundario (opcional)
+- Sinopsis
+- Clasificación por edad
+- Idioma original
+- Precios de alquiler según modalidad
+- Penalización por día de retraso
+
+---
+
+### 2.2 Actores
+
+El sistema deberá permitir:
+
+- Registrar actores
+- Asociar múltiples actores a una película
+- Indicar el papel interpretado
+- Identificar protagonistas
+
+---
+
+### 2.3 Géneros
+
+El sistema deberá permitir mantener un catálogo de géneros cinematográficos.
+
+---
+
+### 2.4 Copias Físicas
+
+Cada copia física deberá:
+
+- Tener un identificador único
+- Estar asociada a una película
+- Estar ubicada en un establecimiento
+- Tener un estado operativo
+- Registrar fecha de adquisición
+- Permitir observaciones
+
+Estados posibles:
+
+- Disponible
+- Alquilada
+- En reparación
+- Perdida
+
+---
+
+### 2.5 Clientes
+
+El sistema deberá:
+
+- Gestionar clientes
+- Permitir bloquear clientes
+- Controlar clientes con alquileres pendientes
+- Controlar clientes con importes impagados
+- Permitir consultar historial completo de alquileres
+
+---
+
+## 3. Procesos de Negocio
+
+---
+
+### 3.1 Compra de Películas
+
+El sistema deberá permitir:
+
+- Registrar la adquisición de nuevas películas
+- Registrar la incorporación de nuevas copias físicas
+- Asociar cada copia a un establecimiento
+- Mantener trazabilidad de adquisición
+
+---
+
+### 3.2 Venta de Películas
+
+El sistema deberá permitir:
+
+- Vender copias físicas a clientes
+- Identificar la copia concreta vendida
+- Actualizar su disponibilidad
+- Registrar el ingreso correspondiente
+
+---
+
+### 3.3 Proceso de Alquiler
+
+El proceso de alquiler es el núcleo del sistema.
+
+---
+
+#### 3.3.1 Creación de Alquiler
+
+El sistema deberá permitir:
+
+- Crear un nuevo documento de alquiler
+- Seleccionar cliente
+- Seleccionar establecimiento
+- Añadir una o varias copias físicas
+- Seleccionar modalidad de tarifa:
+  - Por día
+  - Tarifa plana 3 días
+  - Tarifa plana 7 días
+- Calcular automáticamente:
+  - Fecha prevista de devolución
+  - Precio base del alquiler
+
+Validaciones obligatorias:
+
+- No permitir alquiler si el cliente tiene copias pendientes de devolución
+- No permitir alquiler si el cliente está bloqueado
+- No permitir alquiler si el cliente supera umbral de impago
+- No permitir alquilar copias no disponibles
+
+---
+
+#### 3.3.2 Devolución
+
+El sistema deberá permitir:
+
+- Registrar fecha y hora real de devolución
+- Indicar estado de devolución:
+  - Correcto
+  - Dañado
+  - Perdido
+
+Cálculos automáticos:
+
+- Cálculo de días de retraso
+- Cálculo de penalización por retraso
+- Cálculo de importe por reposición en caso de pérdida
+
+Actualización automática:
+
+- Estado de la copia
+- Totales del alquiler
+- Importes pendientes
+
+Un alquiler solo podrá cerrarse cuando todas sus líneas estén devueltas.
+
+---
+
+### 3.4 Gestión de Impagos
+
+El sistema deberá permitir:
+
+- Detectar clientes con importes pendientes
+- Bloquear automáticamente clientes que superen un umbral configurable
+- Registrar cobros posteriores
+- Generar listado de clientes morosos
+
+---
+
+## 4. Reglas de Negocio
+
+1. No se puede alquilar una copia que no esté disponible.
+2. Un cliente no puede tener más de un alquiler abierto simultáneamente si tiene copias pendientes.
+3. El importe final del alquiler incluye penalizaciones si existen.
+4. Las copias perdidas generan un cargo adicional.
+5. Las penalizaciones se calculan en función de los días de retraso.
+6. Un alquiler solo puede cerrarse cuando todas sus copias han sido gestionadas.
+
+---
+
+## 5. Información y Consultas Requeridas
+
+El sistema deberá permitir obtener:
+
+- Películas más alquiladas
+- Copias disponibles por establecimiento
+- Histórico de alquileres por cliente
+- Clientes con importes pendientes
+- Alquileres con retraso
+- Ingresos generados por alquileres
+- Copias en reparación
+- Copias perdidas
+- Análisis de rotación de películas
+
+---
+
+## 6. Parámetros Configurables
+
+El sistema deberá permitir configurar:
+
+- Umbral de impago permitido
+- Parámetros generales de penalización
+- Identificación única automática de los alquileres
+- Configuración de documentos de salida asociados al alquiler
+
+---
+
+## 7. Flujo de Estados de Copias
+
+Disponible  
+→ Alquilada  
+→ Disponible (devolución correcta)  
+→ En reparación  
+→ Perdida  
+
+---
+
+## 8. Objetivo del Sistema
+
+El sistema deberá:
+
+- Garantizar trazabilidad completa de cada copia física
+- Controlar ingresos por alquiler y penalizaciones
+- Minimizar riesgo de impagos
+- Facilitar análisis de rentabilidad por película y establecimiento
+- Permitir escalabilidad a múltiples establecimientos
+
+---
+
+**Fin del Documento Funcional**
